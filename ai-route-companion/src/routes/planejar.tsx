@@ -79,12 +79,8 @@ function Planejar() {
   const search = useServerFn(searchMobility);
   const route = useServerFn(computeRoute);
 
-  const [origin, setOrigin] = useState<SelectedPlace | null>(
-    DEMO_SCENARIO_PAULISTA_UBATUBA.origin,
-  );
-  const [destination, setDestination] = useState<SelectedPlace | null>(
-    DEMO_SCENARIO_PAULISTA_UBATUBA.destination,
-  );
+  const [origin, setOrigin] = useState<SelectedPlace | null>(null);
+  const [destination, setDestination] = useState<SelectedPlace | null>(null);
   const [timeMode, setTimeMode] = useState<TimeMode>("NOW");
   const [departTime, setDepartTime] = useState("08:00");
   const [pref, setPref] = useState<Pref>("BEST");
@@ -258,8 +254,8 @@ function Planejar() {
             <div className="min-w-0">
               <AddressAutocomplete
                 label="De onde você está saindo?"
-                placeholder="Digite um endereço ou local"
-                initialText={DEMO_ORIGIN}
+                placeholder="Ex.: Av. Paulista, 1000"
+                initialText=""
                 value={origin}
                 onSelect={setOrigin}
                 onError={setInputError}
@@ -269,8 +265,8 @@ function Planejar() {
             <div className="min-w-0">
               <AddressAutocomplete
                 label="Para onde você vai?"
-                placeholder="Digite seu destino"
-                initialText={DEMO_DESTINATION}
+                placeholder="Ex.: Av. Paulista, 1000"
+                initialText=""
                 value={destination}
                 onSelect={setDestination}
                 onError={setInputError}

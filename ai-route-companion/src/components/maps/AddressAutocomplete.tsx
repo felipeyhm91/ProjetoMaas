@@ -12,7 +12,7 @@ function newSessionToken() {
 /** Autocomplete de endereços servido pelo backend (Places API New via gateway). */
 export function AddressAutocomplete({
   label,
-  placeholder = "Digite um endereço ou local",
+  placeholder = "Ex.: Av. Paulista, 1000",
   value,
   onSelect,
   onError,
@@ -35,14 +35,19 @@ export function AddressAutocomplete({
   const sessionRef = useRef(newSessionToken());
   const requestRef = useRef(0);
   const skipRef = useRef(false);
+  const prevValueRef = useRef<SelectedPlace | null>(value);
 
   useEffect(() => {
     if (value && value.formattedAddress !== text) {
       skipRef.current = true;
       setText(value.formattedAddress);
+    } else if (!value && prevValueRef.current !== null) {
+      skipRef.current = true;
+      setText("");
     }
+    prevValueRef.current = value;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value?.placeId, value?.formattedAddress]);
+  }, [value]);
 
   useEffect(() => {
     if (skipRef.current) {
